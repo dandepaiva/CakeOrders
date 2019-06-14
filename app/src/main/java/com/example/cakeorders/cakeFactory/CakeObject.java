@@ -35,8 +35,8 @@ public class CakeObject {
         return ppu;
     }
 
-    public Batters getBatters() {
-        return batters;
+    public ArrayList<CakeAddOn> getBatters() {
+        return batters.getBatter();
     }
 
     public ArrayList<CakeAddOn> getTopping() {

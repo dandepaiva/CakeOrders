@@ -1,12 +1,12 @@
 package com.example.cakeorders;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.cakeorders.cakeFactory.CakeObject;
@@ -47,13 +47,15 @@ public class CakeOrdersAdapter extends RecyclerView.Adapter<CakeOrdersAdapter.Ca
         final TextView cakeId;
         final TextView cakeType;
         final TextView cakePPU;
-        // TODO recycler view for batters
         final RecyclerView toppingView;
+        final RecyclerView batterView;
         CakeAddOnAdapter toppingAdapter;
+        CakeAddOnAdapter batterAdapter;
 
 
         public CakeOrdersViewHolder(@NonNull View itemView) {
             super(itemView);
+            // View representation
             cakeName = itemView.findViewById(R.id.cake_name);
             cakeId = itemView.findViewById(R.id.cake_id);
             cakeType = itemView.findViewById(R.id.cake_type);
@@ -62,11 +64,24 @@ public class CakeOrdersAdapter extends RecyclerView.Adapter<CakeOrdersAdapter.Ca
             toppingView = itemView.findViewById(R.id.topping_view);
             toppingView.setHasFixedSize(true);
 
+            batterView = itemView.findViewById(R.id.batter_view);
+            batterView.setHasFixedSize(true);
+
+            // LayoutManagers for the recycler views
             RecyclerView.LayoutManager toppingLayoutManager =
-                    new LinearLayoutManager(CakeOrdersApplication.getContext());
-            toppingView.setLayoutManager(toppingLayoutManager);
+                    new LinearLayoutManager(CakeOrdersApplication.getContext(), LinearLayout.HORIZONTAL, false);
+            RecyclerView.LayoutManager batterLayoutManager =
+                    new LinearLayoutManager(CakeOrdersApplication.getContext(), LinearLayout.HORIZONTAL, false);
+
+            // Adapters for the Recycler Views
             toppingAdapter = new CakeAddOnAdapter();
+            batterAdapter = new CakeAddOnAdapter();
+
+            toppingView.setLayoutManager(toppingLayoutManager);
             toppingView.setAdapter(toppingAdapter);
+
+            batterView.setLayoutManager(batterLayoutManager);
+            batterView.setAdapter(batterAdapter);
         }
 
         void onBind (CakeObject cakeObject){
@@ -75,6 +90,9 @@ public class CakeOrdersAdapter extends RecyclerView.Adapter<CakeOrdersAdapter.Ca
             cakeType.setText("type: " + cakeObject.getType());
             cakePPU.setText("ppu: " + cakeObject.getPpu());
             toppingAdapter.updateCakeAddOn(cakeObject.getTopping());
+            batterAdapter.updateCakeAddOn(cakeObject.getBatters());
+
+
         }
     }
 }
