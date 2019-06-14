@@ -35,11 +35,23 @@ public class CakeObject {
         return ppu;
     }
 
-    class Batters{
+    public Batters getBatters() {
+        return batters;
+    }
+
+    public ArrayList<CakeAddOn> getTopping() {
+        return topping;
+    }
+
+    class Batters {
         ArrayList<CakeAddOn> batter;
 
         public Batters(ArrayList<CakeAddOn> batter) {
             this.batter = batter;
+        }
+
+        public ArrayList<CakeAddOn> getBatter() {
+            return batter;
         }
     }
 }
