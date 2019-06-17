@@ -37,19 +37,16 @@ class CakeRepository {
     void showCakes(CakeCommunicationInterface cakeShowInterface){
         addToSet(cakeShowInterface);
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                String cakeListAsset = loadAsset("complexdata.json");
+        Runnable runnable = () -> {
+            String cakeListAsset = loadAsset("complexdata.json");
 
-                Type cakeType = new TypeToken<ArrayList<Cake>>(){
-                }.getType();
-                Gson gson = new Gson();
-                ArrayList<Cake> cakeList = gson.fromJson(cakeListAsset, cakeType);
+            Type cakeType = new TypeToken<ArrayList<Cake>>(){
+            }.getType();
+            Gson gson = new Gson();
+            ArrayList<Cake> cakeList = gson.fromJson(cakeListAsset, cakeType);
 
-                for (CakeCommunicationInterface callback: cakeInterfaceSet){
-                    callback.sendCakeList(cakeList);
-                }
+            for (CakeCommunicationInterface callback: cakeInterfaceSet){
+                callback.sendCakeList(cakeList);
             }
         };
         executor.execute(runnable);

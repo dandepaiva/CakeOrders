@@ -32,12 +32,7 @@ public class CakeOrdersActivity extends AppCompatActivity implements CakeReposit
         cakeAdapter = new CakeOrdersAdapter();
         cakeRecyclerView.setAdapter(cakeAdapter);
 
-        showCakes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CakeRepository.getInstance().showCakes(CakeOrdersActivity.this);
-            }
-        });
+        showCakes.setOnClickListener(v -> CakeRepository.getInstance().showCakes(CakeOrdersActivity.this));
     }
 
     @Override
@@ -61,11 +56,6 @@ public class CakeOrdersActivity extends AppCompatActivity implements CakeReposit
      */
     @Override
     public void sendCakeList(final ArrayList<Cake> cakeArrayList) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                cakeAdapter.updateCakeList(cakeArrayList);
-            }
-        });
+        runOnUiThread(() -> cakeAdapter.updateCakeList(cakeArrayList));
     }
 }
