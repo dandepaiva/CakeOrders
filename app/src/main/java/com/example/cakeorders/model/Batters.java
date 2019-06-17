@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * A class representing a list of batters
  */
 public class Batters {
-    ArrayList<CakeAddOn> batter;
+    ArrayList<CakeAddOn> batter; // list of all batters
 
     public Batters(ArrayList<CakeAddOn> batter) {
         this.batter = batter;

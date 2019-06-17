@@ -5,8 +5,8 @@ package com.example.cakeorders.model;
  * can be used for batters and toppings
  */
 public class CakeAddOn {
-    String id;
-    String type;
+    String id;      // id of this addOn (50## if topping; 10## if batter)
+    String type;    // type of this addOn
 
     public String getId() {
         return id;

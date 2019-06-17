@@ -4,14 +4,15 @@ import java.util.ArrayList;
 
 /**
  * Class of a cake to be made
+ *
  */
 public class Cake {
-    private String id;
-    private String type;
-    private String name;
-    private float ppu;
-    private Batters batters;
-    private ArrayList<CakeAddOn> topping;
+    private String id;          // id of this cake
+    private String type;        // type of cake
+    private String name;        // name of cake
+    private float ppu;          // price per unit
+    private Batters batters;    // possible batters
+    private ArrayList<CakeAddOn> topping;   // possible toppings
 
     public Cake(String id, String type, String name, float ppu, Batters batters, ArrayList<CakeAddOn> topping) {
         this.id = id;

@@ -13,15 +13,27 @@ import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+/**
+ * Repository for Cakes (Singleton Class)
+ */
 class CakeRepository {
     Executor executor = Executors.newFixedThreadPool(3);
     private Set<CakeListInterface> cakeListInterfaceSet = new HashSet<>();
 
+    /**
+     * constructor of the Singleton Class: CakeRepository
+     */
     private CakeRepository() {}
     static CakeRepository getInstance(){
         return Singleton.INSTANCE;
     }
 
+    /**
+     * method which will read the Asset containing data in JSON format
+     * uses GSON framework to create an ArrayList of {@link Cake}s
+     * Sends said list through an Interface
+     * @param cakeListInterfaceShowCakes instance of the Interface
+     */
     void showCakes(CakeListInterface cakeListInterfaceShowCakes){
         addToSet(cakeListInterfaceShowCakes);
 
@@ -51,6 +63,11 @@ class CakeRepository {
         cakeListInterfaceSet.remove(cakeListInterface);
     }
 
+    /**
+     * Read a file containing JSON data
+     * @param file the file to be read
+     * @return String with the content of file
+     */
     private String loadAsset(String file) {
         String asset = null;
         try(InputStream inputStream
