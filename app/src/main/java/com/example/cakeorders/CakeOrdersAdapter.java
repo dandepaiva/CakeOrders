@@ -95,12 +95,14 @@ public class CakeOrdersAdapter extends RecyclerView.Adapter<CakeOrdersAdapter.Ca
          */
         void onBind (Cake cake){
             cakeName.setText(cake.getName());
+
             cakeId.setText(CakeOrdersApplication.getContext().getString(
                     R.string.id_message,cake.getId()));
             cakeType.setText(CakeOrdersApplication.getContext().getString(
                     R.string.type_message,cake.getType()));
             cakePPU.setText(CakeOrdersApplication.getContext().getString(
                     R.string.ppu_message,cake.getPpu()));
+
             toppingAdapter.updateCakeIngredients(cake.getTopping());
             batterAdapter.updateCakeIngredients(cake.getBatters());
 

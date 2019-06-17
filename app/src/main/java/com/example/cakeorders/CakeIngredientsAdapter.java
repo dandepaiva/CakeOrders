@@ -27,8 +27,8 @@ public class CakeIngredientsAdapter extends RecyclerView.Adapter<CakeIngredients
     @NonNull
     @Override
     public CakeIngredientsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View addOnView = LayoutInflater.from(CakeOrdersApplication.getContext()).inflate(R.layout.ingredient_recycler_view, viewGroup, false);
-        return new CakeIngredientsViewHolder(addOnView);
+        View ingredientView = LayoutInflater.from(CakeOrdersApplication.getContext()).inflate(R.layout.ingredient_recycler_view, viewGroup, false);
+        return new CakeIngredientsViewHolder(ingredientView);
     }
 
     @Override
@@ -44,10 +44,10 @@ public class CakeIngredientsAdapter extends RecyclerView.Adapter<CakeIngredients
     /**
      * a method used to update the List of Cake Ingredients
      * and notify of said update to the activity
-     * @param cakeAddOnsUpdate a List of Cake Ingredients
+     * @param cakeIngredientUpdate a List of Cake Ingredients
      */
-    void updateCakeIngredients(ArrayList<CakeIngredients> cakeAddOnsUpdate) {
-        cakeIngredientsArrayList = cakeAddOnsUpdate;
+    void updateCakeIngredients(ArrayList<CakeIngredients> cakeIngredientUpdate) {
+        cakeIngredientsArrayList = cakeIngredientUpdate;
         notifyDataSetChanged();
     }
 

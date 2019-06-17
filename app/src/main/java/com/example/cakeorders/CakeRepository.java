@@ -18,7 +18,7 @@ import java.util.concurrent.Executors;
  */
 class CakeRepository {
     Executor executor = Executors.newFixedThreadPool(3);
-    private Set<CakeListInterface> cakeListInterfaceSet = new HashSet<>();
+    private Set<CakeCommunicationInterface> cakeInterfaceSet = new HashSet<>();
 
     /**
      * constructor of the Singleton Class: CakeRepository
@@ -32,10 +32,10 @@ class CakeRepository {
      * method which will read the Asset containing data in JSON format
      * uses GSON framework to create an ArrayList of {@link Cake}s
      * Sends said list through an Interface
-     * @param cakeListInterfaceShowCakes instance of the Interface
+     * @param cakeShowInterface instance of the Interface
      */
-    void showCakes(CakeListInterface cakeListInterfaceShowCakes){
-        addToSet(cakeListInterfaceShowCakes);
+    void showCakes(CakeCommunicationInterface cakeShowInterface){
+        addToSet(cakeShowInterface);
 
         Runnable runnable = new Runnable() {
             @Override
@@ -47,20 +47,20 @@ class CakeRepository {
                 Gson gson = new Gson();
                 ArrayList<Cake> cakeList = gson.fromJson(cakeListAsset, cakeType);
 
-                for (CakeListInterface callback: cakeListInterfaceSet){
-                    callback.sendCake(cakeList);
+                for (CakeCommunicationInterface callback: cakeInterfaceSet){
+                    callback.sendCakeList(cakeList);
                 }
             }
         };
         executor.execute(runnable);
     }
 
-    void addToSet(CakeListInterface cakeListInterface){
-        cakeListInterfaceSet.add(cakeListInterface);
+    void addToSet(CakeCommunicationInterface cakeCommunicationInterface){
+        cakeInterfaceSet.add(cakeCommunicationInterface);
     }
 
-    void removeFromSet(CakeListInterface cakeListInterface){
-        cakeListInterfaceSet.remove(cakeListInterface);
+    void removeFromSet(CakeCommunicationInterface cakeCommunicationInterface){
+        cakeInterfaceSet.remove(cakeCommunicationInterface);
     }
 
     /**
@@ -82,8 +82,8 @@ class CakeRepository {
         return asset;
     }
 
-    public interface CakeListInterface {
-        void sendCake(ArrayList<Cake> cakeArrayList);
+    public interface CakeCommunicationInterface {
+        void sendCakeList(ArrayList<Cake> cakeArrayList);
     }
 
     private  static class Singleton{

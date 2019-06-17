@@ -11,7 +11,10 @@ import com.example.cakeorders.model.Cake;
 
 import java.util.ArrayList;
 
-public class CakeOrdersActivity extends AppCompatActivity implements CakeRepository.CakeListInterface {
+/**
+ * Cake orders activity
+ */
+public class CakeOrdersActivity extends AppCompatActivity implements CakeRepository.CakeCommunicationInterface {
     private CakeOrdersAdapter cakeAdapter;
 
     @Override
@@ -51,8 +54,13 @@ public class CakeOrdersActivity extends AppCompatActivity implements CakeReposit
         super.onPause();
     }
 
+    /**
+     * implementation of {@inheritDoc} in this Activity
+     * used to update CakeList of recycler view
+     * @param cakeArrayList a list of cakes
+     */
     @Override
-    public void sendCake(final ArrayList<Cake> cakeArrayList) {
+    public void sendCakeList(final ArrayList<Cake> cakeArrayList) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
