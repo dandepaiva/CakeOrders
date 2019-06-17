@@ -13,9 +13,15 @@ import com.example.cakeorders.model.Cake;
 
 import java.util.ArrayList;
 
+/**
+ * An adapter to be used by Recycler Views using the {@link Cake} object
+ */
 public class CakeOrdersAdapter extends RecyclerView.Adapter<CakeOrdersAdapter.CakeOrdersViewHolder> {
     private ArrayList<Cake> cakeArrayList;
 
+    /**
+     * constructor for the CakeOrdersAdapter
+     */
     public CakeOrdersAdapter() {
         this.cakeArrayList = new ArrayList<>();
     }
@@ -32,6 +38,11 @@ public class CakeOrdersAdapter extends RecyclerView.Adapter<CakeOrdersAdapter.Ca
         cakeOrdersViewHolder.onBind(cakeArrayList.get(position));
     }
 
+    /**
+     * a method used to update the List of Cakes
+     * and notify of said update to the activity
+     * @param cakeArrayListUpdate a List of Cakes
+     */
     void updateCakeList(ArrayList<Cake> cakeArrayListUpdate){
         cakeArrayList = cakeArrayListUpdate;
         notifyDataSetChanged();
@@ -42,6 +53,9 @@ public class CakeOrdersAdapter extends RecyclerView.Adapter<CakeOrdersAdapter.Ca
         return cakeArrayList.size();
     }
 
+    /**
+     * View Holder for the Cake Adapter
+     */
     public static class CakeOrdersViewHolder extends RecyclerView.ViewHolder {
         final TextView cakeName;
         final TextView cakeId;
@@ -75,6 +89,10 @@ public class CakeOrdersAdapter extends RecyclerView.Adapter<CakeOrdersAdapter.Ca
             setupCakeView(toppingView, toppingAdapter);
         }
 
+        /**
+         * Bind a Cake to this View Holder
+         * @param cake Cake object to be shown here
+         */
         void onBind (Cake cake){
             cakeName.setText(cake.getName());
             cakeId.setText(CakeOrdersApplication.getContext().getString(
@@ -89,6 +107,12 @@ public class CakeOrdersAdapter extends RecyclerView.Adapter<CakeOrdersAdapter.Ca
 
         }
 
+        /**
+         * sets up a layout and an adapter to a recycler view
+         * creates a new Layout Manager for the recycler view
+         * @param recyclerView recycler view to be setup
+         * @param cakeAddOnAdapter adapter to be used
+         */
         void setupCakeView(RecyclerView recyclerView, CakeAddOnAdapter cakeAddOnAdapter){
             // LayoutManagers for the recycler views
             RecyclerView.LayoutManager layoutManager =

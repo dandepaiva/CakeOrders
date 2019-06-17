@@ -2,6 +2,9 @@ package com.example.cakeorders.model;
 
 import java.util.ArrayList;
 
+/**
+ * Class of a cake to be made
+ */
 public class Cake {
     private String id;
     private String type;
@@ -18,8 +21,6 @@ public class Cake {
         this.batters = batters;
         this.topping = topping;
     }
-
-    //Constructor
 
     public String getId() {
         return id;
@@ -44,16 +45,5 @@ public class Cake {
     public ArrayList<CakeAddOn> getTopping() {
         return topping;
     }
-
-    class Batters {
-        ArrayList<CakeAddOn> batter;
-
-        public Batters(ArrayList<CakeAddOn> batter) {
-            this.batter = batter;
-        }
-
-        public ArrayList<CakeAddOn> getBatter() {
-            return batter;
-        }
-    }
 }
+

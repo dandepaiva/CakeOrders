@@ -1,10 +1,12 @@
 package com.example.cakeorders.model;
 
 /**
- * Class used for Batters and Toppings
+ * Class of Cake Add Ons
+ * can be used for batters and toppings
  */
 public class CakeAddOn {
-    String id, type;
+    String id;
+    String type;
 
     public String getId() {
         return id;
