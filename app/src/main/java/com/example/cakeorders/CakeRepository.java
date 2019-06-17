@@ -14,7 +14,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 class CakeRepository {
-    private static final String TAG = "REPOSITORY";
     Executor executor = Executors.newFixedThreadPool(3);
     private Set<CakeListInterface> cakeListInterfaceSet = new HashSet<>();
 
@@ -39,10 +38,6 @@ class CakeRepository {
                 for (CakeListInterface callback: cakeListInterfaceSet){
                     callback.sendCake(cakeList);
                 }
-
-                /*for(Cake cakeObject : cakeList){
-                    Log.d(TAG, "run() called with:\n\t Batters: " + cakeObject.getBatters());
-                }*/
             }
         };
         executor.execute(runnable);
@@ -58,12 +53,11 @@ class CakeRepository {
 
     private String loadAsset(String file) {
         String asset = null;
-        try(      InputStream inputStream = CakeOrdersApplication.getContext().getAssets().open(file)) {
-           // InputStream inputStream = CakeOrdersApplication.getContext().getAssets().open(file);
+        try(InputStream inputStream
+                    = CakeOrdersApplication.getContext().getAssets().open(file)) {
             int size = inputStream.available();
             byte[] buffer = new byte[size];
             inputStream.read(buffer);
-
             asset = new String(buffer);
         } catch (IOException e) {
             e.printStackTrace();

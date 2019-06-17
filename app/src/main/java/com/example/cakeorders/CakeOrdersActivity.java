@@ -12,8 +12,6 @@ import com.example.cakeorders.model.Cake;
 import java.util.ArrayList;
 
 public class CakeOrdersActivity extends AppCompatActivity implements CakeRepository.CakeListInterface {
-    private static final String TAG = "CAKE_ACTIVITY";
-    private RecyclerView cakeRecyclerView;
     private CakeOrdersAdapter cakeAdapter;
 
     @Override
@@ -23,7 +21,7 @@ public class CakeOrdersActivity extends AppCompatActivity implements CakeReposit
 
         final Button showCakes = findViewById(R.id.show_cake_options);
 
-        cakeRecyclerView = findViewById(R.id.cake_options_view);
+        RecyclerView cakeRecyclerView = findViewById(R.id.cake_options_view);
         cakeRecyclerView.setHasFixedSize(true);
 
         RecyclerView.LayoutManager cakesLayoutManager = new LinearLayoutManager(this);
