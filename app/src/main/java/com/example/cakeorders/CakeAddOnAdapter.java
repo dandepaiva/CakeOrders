@@ -51,8 +51,10 @@ public class CakeAddOnAdapter extends RecyclerView.Adapter<CakeAddOnAdapter.Cake
         }
 
         void onBind(CakeAddOn cakeAddOn){
-            addOnId.setText("\tid: "+cakeAddOn.getId());
-            addOnType.setText("type: "+cakeAddOn.getType());
+            addOnId.setText(CakeOrdersApplication.getContext().getString(
+                            R.string.id_message,cakeAddOn.getId()));
+            addOnType.setText(CakeOrdersApplication.getContext().getString(
+                    R.string.type_message,cakeAddOn.getType()));
         }
 
     }

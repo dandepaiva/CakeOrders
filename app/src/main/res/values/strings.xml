@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CakeOrders</string>
+    <string name="type_message">"type: %1$s"</string>
+    <string name="id_message">"\tid: %1$s"</string>
 </resources>
