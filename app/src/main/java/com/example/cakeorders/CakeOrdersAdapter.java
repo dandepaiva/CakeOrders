@@ -9,15 +9,15 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.cakeorders.cakeFactory.CakeObject;
+import com.example.cakeorders.model.Cake;
 
 import java.util.ArrayList;
 
 public class CakeOrdersAdapter extends RecyclerView.Adapter<CakeOrdersAdapter.CakeOrdersViewHolder> {
-    ArrayList<CakeObject> cakeObjectArrayList;
+    private ArrayList<Cake> cakeArrayList;
 
     public CakeOrdersAdapter() {
-        this.cakeObjectArrayList = new ArrayList<>();
+        this.cakeArrayList = new ArrayList<>();
     }
 
     @NonNull
@@ -29,17 +29,17 @@ public class CakeOrdersAdapter extends RecyclerView.Adapter<CakeOrdersAdapter.Ca
 
     @Override
     public void onBindViewHolder(@NonNull CakeOrdersViewHolder cakeOrdersViewHolder, int position) {
-        cakeOrdersViewHolder.onBind(cakeObjectArrayList.get(position));
+        cakeOrdersViewHolder.onBind(cakeArrayList.get(position));
     }
 
-    void updateCakeList(ArrayList<CakeObject> cakeObjectArrayListUpdate){
-        cakeObjectArrayList = cakeObjectArrayListUpdate;
+    void updateCakeList(ArrayList<Cake> cakeArrayListUpdate){
+        cakeArrayList = cakeArrayListUpdate;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return cakeObjectArrayList.size();
+        return cakeArrayList.size();
     }
 
     public static class CakeOrdersViewHolder extends RecyclerView.ViewHolder {
@@ -67,32 +67,36 @@ public class CakeOrdersAdapter extends RecyclerView.Adapter<CakeOrdersAdapter.Ca
             batterView = itemView.findViewById(R.id.batter_view);
             batterView.setHasFixedSize(true);
 
-            // LayoutManagers for the recycler views
-            RecyclerView.LayoutManager toppingLayoutManager =
-                    new LinearLayoutManager(CakeOrdersApplication.getContext(), LinearLayout.HORIZONTAL, false);
-            RecyclerView.LayoutManager batterLayoutManager =
-                    new LinearLayoutManager(CakeOrdersApplication.getContext(), LinearLayout.HORIZONTAL, false);
-
             // Adapters for the Recycler Views
             toppingAdapter = new CakeAddOnAdapter();
             batterAdapter = new CakeAddOnAdapter();
 
-            toppingView.setLayoutManager(toppingLayoutManager);
-            toppingView.setAdapter(toppingAdapter);
-
-            batterView.setLayoutManager(batterLayoutManager);
-            batterView.setAdapter(batterAdapter);
+            setupCakeView(batterView, batterAdapter);
+            setupCakeView(toppingView, toppingAdapter);
         }
 
-        void onBind (CakeObject cakeObject){
-            cakeName.setText(cakeObject.getName());
-            cakeId.setText("id: " + cakeObject.getId());
-            cakeType.setText("type: " + cakeObject.getType());
-            cakePPU.setText("ppu: " + cakeObject.getPpu());
-            toppingAdapter.updateCakeAddOn(cakeObject.getTopping());
-            batterAdapter.updateCakeAddOn(cakeObject.getBatters());
+        void onBind (Cake cake){
+            cakeName.setText(cake.getName());
+            cakeId.setText(CakeOrdersApplication.getContext().getString(
+                    R.string.id_message,cake.getId()));
+            cakeType.setText(CakeOrdersApplication.getContext().getString(
+                    R.string.type_message,cake.getType()));
+            cakePPU.setText(CakeOrdersApplication.getContext().getString(
+                    R.string.ppu_message,cake.getPpu()));
+            toppingAdapter.updateCakeAddOn(cake.getTopping());
+            batterAdapter.updateCakeAddOn(cake.getBatters());
 
 
         }
+
+        void setupCakeView(RecyclerView recyclerView, CakeAddOnAdapter cakeAddOnAdapter){
+            // LayoutManagers for the recycler views
+            RecyclerView.LayoutManager layoutManager =
+                    new LinearLayoutManager(CakeOrdersApplication.getContext(), LinearLayout.HORIZONTAL, false);
+
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(cakeAddOnAdapter);
+        }
+
     }
 }

@@ -4,15 +4,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.cakeorders.cakeFactory.CakeObject;
+import com.example.cakeorders.model.Cake;
 
 import java.util.ArrayList;
 
-public class CakeOrdersActivity extends AppCompatActivity implements CakeRepository.DataCommunicator{
+public class CakeOrdersActivity extends AppCompatActivity implements CakeRepository.CakeListInterface {
     private static final String TAG = "CAKE_ACTIVITY";
     private RecyclerView cakeRecyclerView;
     private CakeOrdersAdapter cakeAdapter;
@@ -55,7 +54,7 @@ public class CakeOrdersActivity extends AppCompatActivity implements CakeReposit
     }
 
     @Override
-    public void sendCake(final ArrayList<CakeObject> cakeArrayList) {
+    public void sendCake(final ArrayList<Cake> cakeArrayList) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

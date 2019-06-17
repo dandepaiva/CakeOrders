@@ -1,9 +1,6 @@
 package com.example.cakeorders;
 
-import android.provider.ContactsContract;
-import android.util.Log;
-
-import com.example.cakeorders.cakeFactory.CakeObject;
+import com.example.cakeorders.model.Cake;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -19,31 +16,31 @@ import java.util.concurrent.Executors;
 class CakeRepository {
     private static final String TAG = "REPOSITORY";
     Executor executor = Executors.newFixedThreadPool(3);
-    private Set<DataCommunicator> dataCommunicatorSet = new HashSet<>();
+    private Set<CakeListInterface> cakeListInterfaceSet = new HashSet<>();
 
     private CakeRepository() {}
     static CakeRepository getInstance(){
         return Singleton.INSTANCE;
     }
 
-    void showCakes(DataCommunicator dataCommunicatorShowCakes){
-        addToSet(dataCommunicatorShowCakes);
+    void showCakes(CakeListInterface cakeListInterfaceShowCakes){
+        addToSet(cakeListInterfaceShowCakes);
 
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 String cakeListAsset = loadAsset("complexdata.json");
 
-                Type cakeType = new TypeToken<ArrayList<CakeObject>>(){
+                Type cakeType = new TypeToken<ArrayList<Cake>>(){
                 }.getType();
                 Gson gson = new Gson();
-                ArrayList<CakeObject> cakeList = gson.fromJson(cakeListAsset, cakeType);
+                ArrayList<Cake> cakeList = gson.fromJson(cakeListAsset, cakeType);
 
-                for (DataCommunicator callback: dataCommunicatorSet){
+                for (CakeListInterface callback: cakeListInterfaceSet){
                     callback.sendCake(cakeList);
                 }
 
-                /*for(CakeObject cakeObject : cakeList){
+                /*for(Cake cakeObject : cakeList){
                     Log.d(TAG, "run() called with:\n\t Batters: " + cakeObject.getBatters());
                 }*/
             }
@@ -51,22 +48,22 @@ class CakeRepository {
         executor.execute(runnable);
     }
 
-    void addToSet(DataCommunicator dataCommunicator){
-        dataCommunicatorSet.add(dataCommunicator);
+    void addToSet(CakeListInterface cakeListInterface){
+        cakeListInterfaceSet.add(cakeListInterface);
     }
 
-    void removeFromSet(DataCommunicator dataCommunicator){
-        dataCommunicatorSet.remove(dataCommunicator);
+    void removeFromSet(CakeListInterface cakeListInterface){
+        cakeListInterfaceSet.remove(cakeListInterface);
     }
 
     private String loadAsset(String file) {
         String asset = null;
-        try {
-            InputStream inputStream = CakeOrdersApplication.getContext().getAssets().open(file);
+        try(      InputStream inputStream = CakeOrdersApplication.getContext().getAssets().open(file)) {
+           // InputStream inputStream = CakeOrdersApplication.getContext().getAssets().open(file);
             int size = inputStream.available();
             byte[] buffer = new byte[size];
             inputStream.read(buffer);
-            inputStream.close();
+
             asset = new String(buffer);
         } catch (IOException e) {
             e.printStackTrace();
@@ -74,8 +71,8 @@ class CakeRepository {
         return asset;
     }
 
-    public interface DataCommunicator{
-        void sendCake(ArrayList<CakeObject> cakeArrayList);
+    public interface CakeListInterface {
+        void sendCake(ArrayList<Cake> cakeArrayList);
     }
 
     private  static class Singleton{

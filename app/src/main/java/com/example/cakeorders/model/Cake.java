@@ -1,14 +1,16 @@
-package com.example.cakeorders.cakeFactory;
+package com.example.cakeorders.model;
 
 import java.util.ArrayList;
 
-public class CakeObject {
-    String id, type, name;
-    float ppu;
-    Batters batters;
-    ArrayList<CakeAddOn> topping;
+public class Cake {
+    private String id;
+    private String type;
+    private String name;
+    private float ppu;
+    private Batters batters;
+    private ArrayList<CakeAddOn> topping;
 
-    public CakeObject(String id, String type, String name, float ppu, Batters batters, ArrayList<CakeAddOn> topping) {
+    public Cake(String id, String type, String name, float ppu, Batters batters, ArrayList<CakeAddOn> topping) {
         this.id = id;
         this.type = type;
         this.name = name;

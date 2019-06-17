@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.cakeorders.cakeFactory.CakeAddOn;
+import com.example.cakeorders.model.CakeAddOn;
 
 import java.util.ArrayList;
 

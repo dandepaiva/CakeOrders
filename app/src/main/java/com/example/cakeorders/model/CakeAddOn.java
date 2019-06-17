@@ -1,4 +1,4 @@
-package com.example.cakeorders.cakeFactory;
+package com.example.cakeorders.model;
 
 /**
  * Class used for Batters and Toppings
