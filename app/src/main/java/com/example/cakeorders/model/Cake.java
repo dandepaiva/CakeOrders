@@ -12,9 +12,9 @@ public class Cake {
     private String name;        // name of cake
     private float ppu;          // price per unit
     private Batters batters;    // possible batters
-    private ArrayList<CakeAddOn> topping;   // possible toppings
+    private ArrayList<CakeIngredients> topping;   // possible toppings
 
-    public Cake(String id, String type, String name, float ppu, Batters batters, ArrayList<CakeAddOn> topping) {
+    public Cake(String id, String type, String name, float ppu, Batters batters, ArrayList<CakeIngredients> topping) {
         this.id = id;
         this.type = type;
         this.name = name;
@@ -39,11 +39,11 @@ public class Cake {
         return ppu;
     }
 
-    public ArrayList<CakeAddOn> getBatters() {
+    public ArrayList<CakeIngredients> getBatters() {
         return batters.getBatter();
     }
 
-    public ArrayList<CakeAddOn> getTopping() {
+    public ArrayList<CakeIngredients> getTopping() {
         return topping;
     }
 }

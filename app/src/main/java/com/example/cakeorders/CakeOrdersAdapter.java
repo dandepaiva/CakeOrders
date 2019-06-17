@@ -63,8 +63,8 @@ public class CakeOrdersAdapter extends RecyclerView.Adapter<CakeOrdersAdapter.Ca
         final TextView cakePPU;
         final RecyclerView toppingView;
         final RecyclerView batterView;
-        CakeAddOnAdapter toppingAdapter;
-        CakeAddOnAdapter batterAdapter;
+        CakeIngredientsAdapter toppingAdapter;
+        CakeIngredientsAdapter batterAdapter;
 
 
         public CakeOrdersViewHolder(@NonNull View itemView) {
@@ -82,8 +82,8 @@ public class CakeOrdersAdapter extends RecyclerView.Adapter<CakeOrdersAdapter.Ca
             batterView.setHasFixedSize(true);
 
             // Adapters for the Recycler Views
-            toppingAdapter = new CakeAddOnAdapter();
-            batterAdapter = new CakeAddOnAdapter();
+            toppingAdapter = new CakeIngredientsAdapter();
+            batterAdapter = new CakeIngredientsAdapter();
 
             setupCakeView(batterView, batterAdapter);
             setupCakeView(toppingView, toppingAdapter);
@@ -101,8 +101,8 @@ public class CakeOrdersAdapter extends RecyclerView.Adapter<CakeOrdersAdapter.Ca
                     R.string.type_message,cake.getType()));
             cakePPU.setText(CakeOrdersApplication.getContext().getString(
                     R.string.ppu_message,cake.getPpu()));
-            toppingAdapter.updateCakeAddOn(cake.getTopping());
-            batterAdapter.updateCakeAddOn(cake.getBatters());
+            toppingAdapter.updateCakeIngredients(cake.getTopping());
+            batterAdapter.updateCakeIngredients(cake.getBatters());
 
 
         }
@@ -111,15 +111,15 @@ public class CakeOrdersAdapter extends RecyclerView.Adapter<CakeOrdersAdapter.Ca
          * sets up a layout and an adapter to a recycler view
          * creates a new Layout Manager for the recycler view
          * @param recyclerView recycler view to be setup
-         * @param cakeAddOnAdapter adapter to be used
+         * @param cakeIngredientsAdapter adapter to be used
          */
-        void setupCakeView(RecyclerView recyclerView, CakeAddOnAdapter cakeAddOnAdapter){
+        void setupCakeView(RecyclerView recyclerView, CakeIngredientsAdapter cakeIngredientsAdapter){
             // LayoutManagers for the recycler views
             RecyclerView.LayoutManager layoutManager =
                     new LinearLayoutManager(CakeOrdersApplication.getContext(), LinearLayout.HORIZONTAL, false);
 
             recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setAdapter(cakeAddOnAdapter);
+            recyclerView.setAdapter(cakeIngredientsAdapter);
         }
 
     }
